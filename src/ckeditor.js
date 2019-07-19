@@ -28,6 +28,8 @@ import PasteFromOffice from '@ckeditor/ckeditor5-paste-from-office/src/pastefrom
 import Table from '@ckeditor/ckeditor5-table/src/table';
 import TableToolbar from '@ckeditor/ckeditor5-table/src/tabletoolbar';
 
+import MapHubsMap from './MapHubsMap';
+
 export default class ClassicEditor extends ClassicEditorBase {}
 
 // Plugins to include in the build.
@@ -52,7 +54,8 @@ ClassicEditor.builtinPlugins = [
 	Paragraph,
 	PasteFromOffice,
 	Table,
-	TableToolbar
+	TableToolbar,
+	MapHubsMap
 ];
 
 // Editor configuration.
@@ -71,7 +74,9 @@ ClassicEditor.defaultConfig = {
 			'insertTable',
 			'mediaEmbed',
 			'undo',
-			'redo'
+			'redo',
+			'|',
+			'mapHubsMap'
 		]
 	},
 	image: {
@@ -90,5 +95,52 @@ ClassicEditor.defaultConfig = {
 		]
 	},
 	// This value must be kept in sync with the language defined in webpack.config.js.
-	language: 'en'
+	language: 'en',
+	mediaEmbed: {
+		extraProviders: [
+			{
+				name: 'maphubs',
+				url: /^mapforenvironment\.org|^.*\.maphubs\.com\/map\/view|share\/(\w+)/,
+				html: match => {
+					const url = match.input;
+					const parts = url.split( '/' );
+					let domain;
+					let type;
+					let id;
+					if ( url.startsWith( 'http' ) ) {
+						domain = parts[ 2 ];
+						type = parts[ 4 ];
+						id = parts[ 5 ];
+					} else {
+						domain = parts[ 0 ];
+						type = parts[ 2 ];
+						id = parts[ 3 ];
+					}
+
+					let embedLinkType = 'embed';
+					if ( type === 'share' ) {
+						embedLinkType = 'public-embed';
+					}
+					return (
+						'<div style="position: relative; padding-bottom: 53%; height: 0;">' +
+							`<iframe src="https://${ domain }/map/${ embedLinkType }/${ id }/static" ` +
+								'style="position: absolute; width: 100%; height: 100%; top: 0; left: 0;" ' +
+								// eslint-disable-next-line
+								'frameborder="0" allowtransparency="true" allow="encrypted-media" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true">' +
+							'</iframe>' +
+						'</div>'
+					);
+				}
+			}
+		]
+	},
+	maphubsMap: {
+		getMap: cb => {
+			// override this in the app to connect a UI
+			// eslint-disable-next-line
+			const mapURL = prompt( 'Enter Map URL' );
+			cb( mapURL );
+		}
+	}
+
 };

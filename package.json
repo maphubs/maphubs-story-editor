@@ -1,7 +1,7 @@
 {
-  "name": "@ckeditor/ckeditor5-build-classic",
-  "version": "12.3.1",
-  "description": "The classic editor build of CKEditor 5 – the best browser-based rich text editor.",
+  "name": "@maphubs/maphubs-story-editor",
+  "version": "0.1.0",
+  "description": "This is a custom build of CKEditor 5 with MapHubs plugins",
   "keywords": [
     "ckeditor5-build",
     "ckeditor",
@@ -60,13 +60,13 @@
     "node": ">=8.0.0",
     "npm": ">=5.7.1"
   },
-  "author": "CKSource (http://cksource.com/)",
+  "author": "MapHubs (https://maphubs.com)",
   "license": "GPL-2.0-or-later",
-  "homepage": "https://ckeditor.com/ckeditor-5",
-  "bugs": "https://github.com/ckeditor/ckeditor5-build-classic/issues",
+  "homepage": "https://maphubs.com",
+  "bugs": "https://github.com/maphubs/maphubs-story-editor/issues",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ckeditor/ckeditor5-build-classic.git"
+    "url": "https://github.com/maphubs/maphubs-story-editor.git"
   },
   "scripts": {
     "build": "webpack --mode production",

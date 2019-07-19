@@ -1,3 +1,9 @@
+MapHubs Story Editor
+=======================================
+
+This is a custom build of CKEditor 5 with MapHubs plugins
+
+
 CKEditor 5 classic editor build
 ========================================
 

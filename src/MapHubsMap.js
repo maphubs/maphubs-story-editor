@@ -3,6 +3,7 @@ import { toWidget } from '@ckeditor/ckeditor5-widget/src/utils';
 import Widget from '@ckeditor/ckeditor5-widget/src/widget';
 import Command from '@ckeditor/ckeditor5-core/src/command';
 import ButtonView from '@ckeditor/ckeditor5-ui/src/button/buttonview';
+import mapIcon from './map.svg';
 
 export default class MapHubsMap extends Plugin {
 	static get requires() {
@@ -26,7 +27,7 @@ class MapHubsMapUI extends Plugin {
 				// The t() function helps localize the editor. All strings enclosed in t() can be
 				// translated and change when the language of the editor changes.
 				label: t( 'Insert Map' ),
-				withText: true,
+				icon: mapIcon,
 				tooltip: true
 			} );
 

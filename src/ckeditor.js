@@ -11,6 +11,7 @@ import UploadAdapter from '@ckeditor/ckeditor5-adapter-ckfinder/src/uploadadapte
 import Autoformat from '@ckeditor/ckeditor5-autoformat/src/autoformat';
 import Bold from '@ckeditor/ckeditor5-basic-styles/src/bold';
 import Italic from '@ckeditor/ckeditor5-basic-styles/src/italic';
+import Underline from '@ckeditor/ckeditor5-basic-styles/src/underline';
 import BlockQuote from '@ckeditor/ckeditor5-block-quote/src/blockquote';
 import CKFinder from '@ckeditor/ckeditor5-ckfinder/src/ckfinder';
 import EasyImage from '@ckeditor/ckeditor5-easy-image/src/easyimage';
@@ -27,8 +28,13 @@ import Paragraph from '@ckeditor/ckeditor5-paragraph/src/paragraph';
 import PasteFromOffice from '@ckeditor/ckeditor5-paste-from-office/src/pastefromoffice';
 import Table from '@ckeditor/ckeditor5-table/src/table';
 import TableToolbar from '@ckeditor/ckeditor5-table/src/tabletoolbar';
+import RemoveFormat from '@ckeditor/ckeditor5-remove-format/src/removeformat';
+import Highlight from '@ckeditor/ckeditor5-highlight/src/highlight';
+import Alignment from '@ckeditor/ckeditor5-alignment/src/alignment';
+import WordCount from '@ckeditor/ckeditor5-word-count/src/wordcount';
 
 import MapHubsMap from './MapHubsMap';
+import MapHubsUpload from './imageupload/upload';
 
 export default class ClassicEditor extends ClassicEditorBase {}
 
@@ -39,6 +45,7 @@ ClassicEditor.builtinPlugins = [
 	Autoformat,
 	Bold,
 	Italic,
+	Underline,
 	BlockQuote,
 	CKFinder,
 	EasyImage,
@@ -55,7 +62,12 @@ ClassicEditor.builtinPlugins = [
 	PasteFromOffice,
 	Table,
 	TableToolbar,
-	MapHubsMap
+	RemoveFormat,
+	Highlight,
+	Alignment,
+	WordCount,
+	MapHubsMap,
+	MapHubsUpload
 ];
 
 // Editor configuration.
@@ -66,17 +78,22 @@ ClassicEditor.defaultConfig = {
 			'|',
 			'bold',
 			'italic',
+			'underline',
 			'link',
 			'bulletedList',
 			'numberedList',
-			'imageUpload',
 			'blockQuote',
 			'insertTable',
-			'mediaEmbed',
-			'undo',
-			'redo',
+			'highlight',
+			'alignment',
+			'removeFormat',
 			'|',
-			'mapHubsMap'
+			'imageUpload',
+			'mapHubsMap',
+			'mediaEmbed',
+			'|',
+			'undo',
+			'redo'
 		]
 	},
 	image: {
@@ -140,6 +157,21 @@ ClassicEditor.defaultConfig = {
 			// eslint-disable-next-line
 			const mapURL = prompt( 'Enter Map URL' );
 			cb( mapURL );
+		}
+	},
+	maphubsUpload: {
+		assetUploadAPI: 'assets.maphubs.com', // maphubs asset upload service
+		assetUploadAPIKey: 'abc123', //
+		subfolder: 'example', // can be used to group content by host and or type
+		subfolderID: '', // an id for example a story id that can be used to bulk delete content later
+		onUpload: result => { // returns the full response from the API if needed
+			// eslint-disable-next-line
+			console.log( result )
+		},
+		cropImage: data => { // given the full image return the users cropped/resized version
+			// eslint-disable-next-line
+			console.log( data )
+			return data;
 		}
 	}
 

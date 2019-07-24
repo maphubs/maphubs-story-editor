@@ -84,9 +84,46 @@ class MapHubsMapEditing extends Plugin {
 		} );
 		conversion.for( 'dataDowncast' ).elementToElement( {
 			model: 'maphubsMap',
-			view: {
-				name: 'figure',
-				classes: 'maphubs-map',
+			view: ( modelElement, viewWriter ) => {
+				const url = modelElement.getAttribute( 'url' );
+				// const figure = viewWriter.createContainerElement( 'figure', { class: 'media' } );
+				const attributes = {
+					class: 'ck-media__wrapper'
+				};
+				attributes[ 'data-oembed-url' ] = url;
+
+				const map = viewWriter.createUIElement( 'div', attributes, function( domDocument ) {
+					const domElement = this.toDomElement( domDocument );
+					if ( !url ) {
+						// console.error('Missing required map URL');
+						domElement.innerHTML = '<p>Error</p>';
+					} else {
+						let devMode;
+						if ( url.startsWith( 'http://maphubs.test' ) || url.startsWith( 'maphubs.test' ) ) {
+							devMode = true;
+						}
+
+						const parts = url.split( '/' );
+						const domain = parts[ 2 ];
+						const type = parts[ 4 ];
+						const id = parts[ 5 ];
+						let embedLinkType = 'embed';
+						if ( type === 'share' ) {
+							embedLinkType = 'public-embed';
+						}
+						// console.log( parts );
+						// eslint-disable-next-line
+						domElement.innerHTML = '<div class="maphubs-map-embed" style="position: relative; padding-bottom: 53%; height: 0;">' +
+									`<iframe src="${ devMode ? 'http' : 'https' }://${ domain }/map/${ embedLinkType }/${ id }/static" ` +
+										'style="position: absolute; width: 100%; height: 100%; top: 0; left: 0;" ' +
+										// eslint-disable-next-line
+										'frameborder="0" allowtransparency="true" allow="encrypted-media" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true">' +
+									'</iframe>' +
+								'</div>';
+					}
+					return domElement;
+				} );
+				return map;
 			}
 		} );
 		conversion.for( 'editingDowncast' ).elementToElement( {

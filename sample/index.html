@@ -26,12 +26,18 @@
 	<p>You can use this sample to validate whether your <a href="https://ckeditor.com/docs/ckeditor5/latest/builds/guides/development/custom-builds.html">custom build</a> works fine.</p>
 </div>
 <p>Word Count: <span id="word-count"></span></p>
+<div id="data-display"></div>
 
 <script src="../build/ckeditor.js"></script>
 <script>
 	ClassicEditor.create( document.querySelector( '#editor' ) )
 		.then( editor => {
 			window.editor = editor;
+			editor.model.document.on( 'change:data', () => {
+				console.log( 'The data has changed!' );
+				var data = editor.getData()
+				document.getElementById("data-display").innerHTML = data
+		} );
 			const wordCountPlugin = editor.plugins.get( 'WordCount' );
 
 			wordCountPlugin.on( 'update', ( evt, data ) => {

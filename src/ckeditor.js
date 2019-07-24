@@ -117,13 +117,17 @@ ClassicEditor.defaultConfig = {
 		extraProviders: [
 			{
 				name: 'maphubs',
-				url: /^mapforenvironment\.org|^.*\.maphubs\.com\/map\/view|share\/(\w+)/,
+				url: /^maphubs.test:4000|^mapforenvironment\.org|^.*\.maphubs\.com\/map\/view|share\/(\w+)/,
 				html: match => {
 					const url = match.input;
 					const parts = url.split( '/' );
 					let domain;
 					let type;
 					let id;
+					let devMode;
+					if ( url.startsWith( 'http://maphubs.test' ) || url.startsWith( 'maphubs.test' ) ) {
+						devMode = true;
+					}
 					if ( url.startsWith( 'http' ) ) {
 						domain = parts[ 2 ];
 						type = parts[ 4 ];
@@ -140,7 +144,7 @@ ClassicEditor.defaultConfig = {
 					}
 					return (
 						'<div style="position: relative; padding-bottom: 53%; height: 0;">' +
-							`<iframe src="https://${ domain }/map/${ embedLinkType }/${ id }/static" ` +
+							`<iframe src="${ devMode ? 'http' : 'https' }://${ domain }/map/${ embedLinkType }/${ id }/static" ` +
 								'style="position: absolute; width: 100%; height: 100%; top: 0; left: 0;" ' +
 								// eslint-disable-next-line
 								'frameborder="0" allowtransparency="true" allow="encrypted-media" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true">' +

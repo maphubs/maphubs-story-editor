@@ -98,14 +98,18 @@ class MapHubsMapEditing extends Plugin {
 					class: 'ck-media__wrapper'
 				};
 				attributes[ 'data-oembed-url' ] = url;
+
 				const map = viewWriter.createUIElement( 'div', attributes, function( domDocument ) {
 					const domElement = this.toDomElement( domDocument );
 					if ( !url ) {
 						// console.error('Missing required map URL');
 						domElement.innerHTML = '<p>Error</p>';
 					} else {
-						// https://mapforenvironment.org/map/view/36/#3.7/19.98/96.74
-						// https://demo.maphubs.com/map/share/TA5R70AlT
+						let devMode;
+						if ( url.startsWith( 'http://maphubs.test' ) || url.startsWith( 'maphubs.test' ) ) {
+							devMode = true;
+						}
+
 						const parts = url.split( '/' );
 						const domain = parts[ 2 ];
 						const type = parts[ 4 ];
@@ -117,7 +121,7 @@ class MapHubsMapEditing extends Plugin {
 						// console.log( parts );
 						// eslint-disable-next-line
 						domElement.innerHTML = '<div class="maphubs-map-embed" style="position: relative; padding-bottom: 53%; height: 0;">' +
-									`<iframe src="https://${ domain }/map/${ embedLinkType }/${ id }/static" ` +
+									`<iframe src="${ devMode ? 'http' : 'https' }://${ domain }/map/${ embedLinkType }/${ id }/static" ` +
 										'style="position: absolute; width: 100%; height: 100%; top: 0; left: 0;" ' +
 										// eslint-disable-next-line
 										'frameborder="0" allowtransparency="true" allow="encrypted-media" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true">' +

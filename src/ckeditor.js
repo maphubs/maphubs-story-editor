@@ -164,10 +164,10 @@ ClassicEditor.defaultConfig = {
 		}
 	},
 	maphubsUpload: {
-		assetUploadAPI: 'assets.maphubs.com', // maphubs asset upload service
+		assetUploadAPI: 'http://localhost:4012/image/upload', // maphubs asset upload service
 		assetUploadAPIKey: 'abc123', //
-		subfolder: 'example', // can be used to group content by host and or type
-		subfolderID: '', // an id for example a story id that can be used to bulk delete content later
+		subfolder: 'localdev', // can be used to group content by host and or type
+		subfolderID: '1', // an id for example a story id that can be used to bulk delete content later
 		onUpload: result => { // returns the full response from the API if needed
 			// eslint-disable-next-line
 			console.log( result )

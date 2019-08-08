@@ -36,8 +36,10 @@ export default class Adapter {
 					.type( 'json' ).accept( 'json' )
 					.send( {
 						image: data,
-						subfolder: config.subfolder,
-						subfolderID: config.subfolderID
+						options: {
+							subfolder: config.subfolder,
+							subfolderID: config.subfolderID
+						}
 					} )
 					.end( ( err, res ) => {
 						if ( err ) {

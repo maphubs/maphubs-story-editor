@@ -117,7 +117,8 @@ ClassicEditor.defaultConfig = {
 		extraProviders: [
 			{
 				name: 'maphubs',
-				url: /^maphubs.test:4000|^mapforenvironment\.org|^.*\.maphubs\.com\/map\/view|share\/(\w+)/,
+				// eslint-disable-next-line
+				url: /^maphubs.test:4000|^.*\.greenpeace\.org|^mapforenvironment\.org|^opencongo\.org|^retailblight\.com|^.*\.maphubs\.com\/map\/view|share\/(\w+)/,
 				html: match => {
 					const url = match.input;
 					const parts = url.split( '/' );

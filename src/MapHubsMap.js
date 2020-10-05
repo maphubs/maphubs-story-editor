@@ -12,6 +12,10 @@ export default class MapHubsMap extends Plugin {
 }
 
 class MapHubsMapUI extends Plugin {
+	static get pluginName() {
+		return 'MapHubsMapUI';
+	}
+
 	init() {
 		const editor = this.editor;
 		const t = editor.t;
@@ -84,15 +88,15 @@ class MapHubsMapEditing extends Plugin {
 		} );
 		conversion.for( 'dataDowncast' ).elementToElement( {
 			model: 'maphubsMap',
-			view: ( modelElement, viewWriter ) => {
+			view: (  modelElement, { writer } ) => {
 				const url = modelElement.getAttribute( 'url' );
-				// const figure = viewWriter.createContainerElement( 'figure', { class: 'media' } );
+				// const figure = writer.createContainerElement( 'figure', { class: 'media' } );
 				const attributes = {
 					class: 'ck-media__wrapper'
 				};
 				attributes[ 'data-oembed-url' ] = url;
 
-				const map = viewWriter.createUIElement( 'div', attributes, function( domDocument ) {
+				const map = writer.createUIElement( 'div', attributes, function( domDocument ) {
 					const domElement = this.toDomElement( domDocument );
 					if ( !url ) {
 						// console.error('Missing required map URL');
@@ -128,15 +132,15 @@ class MapHubsMapEditing extends Plugin {
 		} );
 		conversion.for( 'editingDowncast' ).elementToElement( {
 			model: 'maphubsMap',
-			view: ( modelElement, viewWriter ) => {
+			view: ( modelElement, {writer} ) => {
 				const url = modelElement.getAttribute( 'url' );
-				const figure = viewWriter.createContainerElement( 'figure', { class: 'media' } );
+				const figure = writer.createContainerElement( 'figure', { class: 'media' } );
 				const attributes = {
 					class: 'ck-media__wrapper'
 				};
 				attributes[ 'data-oembed-url' ] = url;
 
-				const map = viewWriter.createUIElement( 'div', attributes, function( domDocument ) {
+				const map = writer.createUIElement( 'div', attributes, function( domDocument ) {
 					const domElement = this.toDomElement( domDocument );
 					if ( !url ) {
 						// console.error('Missing required map URL');
@@ -168,9 +172,9 @@ class MapHubsMapEditing extends Plugin {
 					return domElement;
 				} );
 
-				viewWriter.insert( viewWriter.createPositionAt( figure, 0 ), map );
+				writer.insert( writer.createPositionAt( figure, 0 ), map );
 
-				return toWidget( figure, viewWriter, { label: 'maphubs map widget' } );
+				return toWidget( figure, writer, { label: 'maphubs map widget' } );
 			}
 		} );
 	}

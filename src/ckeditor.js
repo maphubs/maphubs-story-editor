@@ -21,6 +21,7 @@ import ImageCaption from '@ckeditor/ckeditor5-image/src/imagecaption';
 import ImageStyle from '@ckeditor/ckeditor5-image/src/imagestyle';
 import ImageToolbar from '@ckeditor/ckeditor5-image/src/imagetoolbar';
 import ImageUpload from '@ckeditor/ckeditor5-image/src/imageupload';
+import Indent from '@ckeditor/ckeditor5-indent/src/indent';
 import Link from '@ckeditor/ckeditor5-link/src/link';
 import List from '@ckeditor/ckeditor5-list/src/list';
 import MediaEmbed from '@ckeditor/ckeditor5-media-embed/src/mediaembed';
@@ -28,10 +29,12 @@ import Paragraph from '@ckeditor/ckeditor5-paragraph/src/paragraph';
 import PasteFromOffice from '@ckeditor/ckeditor5-paste-from-office/src/pastefromoffice';
 import Table from '@ckeditor/ckeditor5-table/src/table';
 import TableToolbar from '@ckeditor/ckeditor5-table/src/tabletoolbar';
+import TextTransformation from '@ckeditor/ckeditor5-typing/src/texttransformation';
 import RemoveFormat from '@ckeditor/ckeditor5-remove-format/src/removeformat';
 import Highlight from '@ckeditor/ckeditor5-highlight/src/highlight';
 import Alignment from '@ckeditor/ckeditor5-alignment/src/alignment';
 import WordCount from '@ckeditor/ckeditor5-word-count/src/wordcount';
+import SelectAll from '@ckeditor/ckeditor5-select-all/src/selectall';
 
 import MapHubsMap from './MapHubsMap';
 import MapHubsUpload from './imageupload/upload';
@@ -55,6 +58,7 @@ ClassicEditor.builtinPlugins = [
 	ImageStyle,
 	ImageToolbar,
 	ImageUpload,
+	Indent,
 	Link,
 	List,
 	MediaEmbed,
@@ -62,10 +66,12 @@ ClassicEditor.builtinPlugins = [
 	PasteFromOffice,
 	Table,
 	TableToolbar,
+	TextTransformation,
 	RemoveFormat,
 	Highlight,
 	Alignment,
 	WordCount,
+	SelectAll,
 	MapHubsMap,
 	MapHubsUpload
 ];
@@ -82,6 +88,10 @@ ClassicEditor.defaultConfig = {
 			'link',
 			'bulletedList',
 			'numberedList',
+			'|',
+			'indent',
+			'outdent',
+			'|',
 			'blockQuote',
 			'insertTable',
 			'highlight',

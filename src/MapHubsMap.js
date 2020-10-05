@@ -113,7 +113,7 @@ class MapHubsMapEditing extends Plugin {
 						}
 						// console.log( parts );
 						// eslint-disable-next-line
-						domElement.innerHTML = '<div class="maphubs-map-embed" style="position: relative; padding-bottom: 53%; height: 0;">' +
+						domElement.innerHTML = '<div class="maphubs-map-embed" style="position: relative; padding-bottom: 53%; min-height: 300px;">' +
 									`<iframe src="${ devMode ? 'http' : 'https' }://${ domain }/map/${ embedLinkType }/${ id }/static" ` +
 										'style="position: absolute; width: 100%; height: 100%; top: 0; left: 0;" ' +
 										// eslint-disable-next-line
